@@ -17,4 +17,9 @@ export class AppComponent {
   // Ejemplo directiva de atributo para [ngStyle]    ESTIBALIZ
   textColor = 'blue';
   
+   // Ejemplo  directiva de atributo para [style.fontSize]   DAVID
+   fontSize = 20;
+
+   // Ejeemplo directiva estructural para *ngFor     DAVID
+   alumnos = ['Estibaliz Cortés', 'David García', 'Francisco José Fernándefz'];
 }
