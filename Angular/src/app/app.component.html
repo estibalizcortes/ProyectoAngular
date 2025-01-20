@@ -1,30 +1,7 @@
-<h1>DIRECTIVAS ESTRUCTURALES</h1>
-<h2>*ngIf: Mostrar/Ocultar contenido</h2>              
-<button (click)="toggleVisibility()">Mostrar/Ocultar</button>          
-<div *ngIf="isVisible">
-<p>Este texto aparece y desaparece dando click al boton</p>
-</div>
+<header>
+    <app-header></app-header>
+</header>
 
-<h2>*ngFor: Mostrar una lista</h2>
-<ul>
-<li *ngFor="let fruta of frutas">{{ fruta }}</li>
-</ul>
-
-<h2>*ngFor con índice: Mostrar una lista con índice de alumnos</h2>
-<ul>
-<li *ngFor="let alumno of alumnos; let i = index">
-    {{ i + 1 }}. {{ alumno }}
-</li>
-</ul>
-
-<h1>DIRECTIVAS DE ATRIBUTO</h1>
-<h2>[ngClass]: Aplicar clase a un texto</h2>            
-<button (click)="toggleClass()">Toggle Class</button>
-<p [ngClass]="{ 'active': isActive }">Texto con clase</p> <!--active es una clases de css que pone texto en negritas y verde-->
-
-<h2>[ngStyle]: Cambiar color del texto</h2>                              
-<p [ngStyle]="{ 'color': textColor }">Este texto es de color azul</p>
-
-<h2>[style.fontSize]: Cambiar tamaño del nombre del centro</h2>
-<input type="range" [(ngModel)]="fontSize" min="10" max="50" />
-<p [style.fontSize.px]="fontSize"> IES Al-Mudeyne</p>
+<footer>
+    <app-footer></app-footer>
+</footer>
