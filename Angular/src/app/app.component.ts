@@ -11,8 +11,24 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'Angular';
 
+
+  // Ejemplo directiva estructural para *ngIf     PACO
+  isVisible = true;
+  toggleVisibility() {
+    this.isVisible = !this.isVisible;
+  }
+
+
   // Ejemplo directiva estructural para *ngFor     ESTIBALIZ
   frutas = ['Manzana', 'Naranja', 'Plátano'];
+
+
+  // Ejemplo directiva de atributo para [ngClass]    PACO
+  isActive = false;
+  toggleClass() {
+    this.isActive = !this.isActive;
+  }
+
 
   // Ejemplo directiva de atributo para [ngStyle]    ESTIBALIZ
   textColor = 'blue';

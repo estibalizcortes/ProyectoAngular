@@ -1,4 +1,10 @@
-<h1>DIRECTIVAS ESTRUCTURALES</h1>    
+<h1>DIRECTIVAS ESTRUCTURALES</h1>
+<h2>*ngIf: Mostrar/Ocultar contenido</h2>              
+<button (click)="toggleVisibility()">Mostrar/Ocultar</button>          
+<div *ngIf="isVisible">
+<p>Este texto aparece y desaparece dando click al boton</p>
+</div>
+
 <h2>*ngFor: Mostrar una lista</h2>
 <ul>
 <li *ngFor="let fruta of frutas">{{ fruta }}</li>
@@ -11,7 +17,11 @@
 </li>
 </ul>
 
-<h1>DIRECTIVAS DE ATRIBUTO</h1> 
+<h1>DIRECTIVAS DE ATRIBUTO</h1>
+<h2>[ngClass]: Aplicar clase a un texto</h2>            
+<button (click)="toggleClass()">Toggle Class</button>
+<p [ngClass]="{ 'active': isActive }">Texto con clase</p> <!--active es una clases de css que pone texto en negritas y verde-->
+
 <h2>[ngStyle]: Cambiar color del texto</h2>                              
 <p [ngStyle]="{ 'color': textColor }">Este texto es de color azul</p>
 
