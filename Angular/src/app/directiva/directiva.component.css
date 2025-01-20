@@ -6,13 +6,20 @@ h1 {
     text-transform: uppercase;
 }
 
+h2 {
+    font-size: 24px;
+    color: black;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
 button {
     background-color: green;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
-    margin-top: 10px; /* no haya margen superior */
+    margin-top: 10px;
     border-radius: 5px;
 }
 
@@ -20,10 +27,25 @@ button:hover {
     background-color: #45a049;
 }
 
+p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.active {
+    font-weight: bold;
+    color: green;
+}
+
 div {
-    margin-top: 20px; /* margen superior */
-    display: flex; 
-    justify-content: center; /* centrar botones horizontalmente*/
-    align-items: center; /* centrar botones verticalmente */
-    gap: 10px; /* espacio entre botones */
+    margin-top: 20px;
 }

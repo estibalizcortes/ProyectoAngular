@@ -1,4 +1,3 @@
-<p>header works!</p>
 <div *ngIf="vistaActual === ' '">
     <button (click)="mostrarContenido('btn1')">Semana 1</button>
     <button (click)="mostrarContenido('btn2')">Semana 2</button>
@@ -8,7 +7,8 @@
 </div>
 
 <div *ngIf="vistaActual === 'btn1'">
-  <h1>Botón 1 funciona</h1>
+  <app-directiva></app-directiva>
+
 </div>
 <div *ngIf="vistaActual === 'btn2'">
   <h1>Botón 1 funciona</h1>
