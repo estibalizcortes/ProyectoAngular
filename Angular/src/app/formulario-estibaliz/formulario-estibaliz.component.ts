@@ -22,4 +22,9 @@ export class FormularioEstibalizComponent {
     genero: '',
     estadoCivil: '' 
   }
+  constructor() { }
+
+  enviarDatos(){
+    console.log(this.persona);
+  }
 }
