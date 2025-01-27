@@ -1,44 +1,16 @@
-  .footer {
-    background-color: #282c34;
-    color: #ffffff;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: auto; 
-  }
-  
-  .divFooter {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .footer p {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .listaFooter {
+
+.divFooter {
+    margin: auto;
+}
+
+.listaFooter {
     list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .listaFooter li {
-    display: inline;
-  }
-  
-  .divFooter a {
+}
+
+.enlace {
     color: #61dafb;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease;
-  }
-  
-  .listaFooter a:hover {
+}
+
+.enlace:hover {
     color: #ffffff;
-  }
-  
+}
