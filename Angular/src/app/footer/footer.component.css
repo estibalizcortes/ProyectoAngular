@@ -1,9 +1,10 @@
-.footer {
+  .footer {
     background-color: #282c34;
     color: #ffffff;
     padding: 20px 0;
     text-align: center;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: auto; 
   }
   
   .divFooter {
