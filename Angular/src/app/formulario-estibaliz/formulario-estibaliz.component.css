@@ -1,0 +1,25 @@
+/* Estilo general del formulario */
+form {
+    background-color: #f4f4f4;
+}
+
+/* Estilo para los inputs y selects */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    border: 1px;
+    color: black;
+    padding: 20px;
+}
+
+/*Estilos para el botón*/
+button[type="submit"] {
+    width: 100%;
+    background-color: lightblue;
+    color: #fff;
+    border: none;
+}
