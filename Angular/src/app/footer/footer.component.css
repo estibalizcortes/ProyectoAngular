@@ -1,0 +1,16 @@
+
+.divFooter {
+    margin: auto;
+}
+
+.listaFooter {
+    list-style: none;
+}
+
+.enlace {
+    color: #61dafb;
+}
+
+.enlace:hover {
+    color: #ffffff;
+}

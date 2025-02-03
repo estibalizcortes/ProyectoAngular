@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;  /* Los hijos se apilan verticalmente */
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Esto empuja el footer hacia abajo */
+}
