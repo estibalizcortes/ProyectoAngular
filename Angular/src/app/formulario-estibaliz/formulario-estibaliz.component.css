@@ -1,6 +1,7 @@
 /* Estilo general del formulario */
 form {
-    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 /* Estilo para los inputs y selects */
@@ -14,12 +15,29 @@ select {
     border: 1px;
     color: black;
     padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+
 }
 
 /*Estilos para el botón*/
 button[type="submit"] {
     width: 100%;
     background-color: lightblue;
-    color: #fff;
     border: none;
+    cursor: pointer;    
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button[type="submit"]:hover {
+    width: 150%;
+    background-color: green;
+    padding: 20px;
+    border-radius: 8px;
 }
