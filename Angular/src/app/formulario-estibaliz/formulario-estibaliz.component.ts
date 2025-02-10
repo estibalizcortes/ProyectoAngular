@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './formulario-estibaliz.component.css'
 })
 export class FormularioEstibalizComponent {
+<<<<<<< HEAD
 validarCorreo() {
   let correo = this.persona.correo;
     if (correo.indexOf('@') === -1 || !correo.endsWith('.com') || !correo.endsWith('.es')) {
@@ -42,6 +43,8 @@ agrandarBoton() {
       boton.style.height = 'auto';
     }
   }
+=======
+>>>>>>> main
   title= 'Formulario de Registro';
   persona ={
     nombre: '',

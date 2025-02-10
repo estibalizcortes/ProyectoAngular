@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Matrícula 2º DAW - IES Almudeyne</h1>
+    <form #formulario="ngForm" (ngSubmit)="validarFormulario(formulario)">
+
+        <div class="m-3">
+            <label class="form-label">Nombre:</label>
+            <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="persona.nombre" name="nombre" required>
+            <div *ngIf="formulario.controls['nombre']?.invalid && formulario.controls['nombre']?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Apellido:</label>
+            <input type="text" class="form-control" placeholder="Apellido" [(ngModel)]="persona.apellido" name="apellido" required>
+            <div *ngIf="formulario.controls['apellido']?.invalid && formulario.controls['apellido']?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">DNI:</label>
+            <input type="text" class="form-control" placeholder="DNI" [(ngModel)]="persona.dni" name="dni" required pattern="^[0-9]{8}[A-Za-z]$">
+            <div *ngIf="formulario.controls['dni']?.invalid && formulario.controls['dni']?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" class="form-control" placeholder="Correo" [(ngModel)]="persona.correo" name="correo" required
+            pattern="^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,}$">
+                <div *ngIf="formulario.controls['correo']?.invalid && formulario.controls['correo']?.touched" class="text-danger">
+                Debe contener '&#64;', '.' y es obligatorio
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Dirección:</label>
+            <input type="text" class="form-control" placeholder="Dirección" [(ngModel)]="persona.direccion" name="direccion">
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Teléfono:</label>
+            <input type="number" class="form-control" placeholder="Teléfono" [(ngModel)]="persona.telefono" name="telefono" required pattern="^[0-9]{9}$">
+            <div *ngIf="formulario.controls['telefono']?.invalid && formulario.controls['telefono']?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label d-block">Género:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="persona.genero" name="genero" value="masculino">
+                <label class="form-check-label">Masculino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="persona.genero" name="genero" value="femenino">
+                <label class="form-check-label">Femenino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="persona.genero" name="genero" value="otro">
+                <label class="form-check-label">Otro</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success m-2" [disabled]="!formulario.valid">Enviar</button>
+        
+    </form>
+</div>

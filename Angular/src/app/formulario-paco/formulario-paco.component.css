@@ -1,0 +1,52 @@
+/* Estilo general del formulario */
+form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Estilo para los inputs y selects */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Estilo de las etiquetas */
+label.form-nombre {
+    font-weight: bold;
+    color: black; /* Las etiquetas en negro */
+    margin-bottom: 5px;
+}
+
+/* Estilo del título */
+.form-title {
+    color: black;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el botón */
+button[type="submit"] {
+    width: 100%;
+    background-color: lightblue;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #4e92cc; /* Cambio de color al pasar el ratón */
+}
