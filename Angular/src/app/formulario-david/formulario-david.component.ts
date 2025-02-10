@@ -1,36 +1,41 @@
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario-david',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './formulario-david.component.html',
   styleUrl: './formulario-david.component.css'
 })
 export class FormularioDavidComponent {
-  persona = {
-    nombre: '',
-    apellido: '',
-    dni: '',
-    correo: '',
-    direccion: '',
-    telefono: '',
-    genero: ''
-  };
+  
+  formulario: FormGroup;
 
-  validarFormulario(formulario: NgForm) {
-    if (formulario.valid) {
+  constructor(private fb: FormBuilder) {
+    this.formulario = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      dni: ['', [Validators.required, Validators.pattern(/^[0-9]{8}[A-Za-z]$/)]],
+      correo: ['', [Validators.required, Validators.email]],
+      direccion: [''],
+      telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{9}$/)]],
+      genero: ['', Validators.required]
+    });
+  }
+
+  validarFormulario() {
+    if (this.formulario.valid) {
       this.enviarDatos();
-      formulario.reset();
+      this.formulario.reset();
     } else {
       console.log('Error al registrar alumno');
     }
   }
 
   enviarDatos() {
-    console.log("Alumno registrado correctamente", this.persona);
+    console.log("Alumno registrado correctamente", this.formulario.value);
   }
 }
-
