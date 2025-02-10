@@ -23,6 +23,7 @@ export class FormularioDavidComponent {
   validarFormulario(formulario: NgForm) {
     if (formulario.valid) {
       this.enviarDatos();
+      formulario.reset();
     } else {
       console.log('Error al registrar alumno');
     }
