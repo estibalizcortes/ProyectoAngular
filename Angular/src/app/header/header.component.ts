@@ -13,7 +13,7 @@ import { FormularioDavidComponent } from '../formulario-david/formulario-david.c
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  vistaActual: string = ' ';
+  vistaActual: string = '';
   mostrarContenido(txtBtn: string): void {
     this.vistaActual = txtBtn;
   }
