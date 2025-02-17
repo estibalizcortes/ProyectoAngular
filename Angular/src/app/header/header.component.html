@@ -3,21 +3,17 @@
     <button (click)="mostrarContenido('btn2')">Formulario Estibaliz</button>
     <button (click)="mostrarContenido('btn3')">Formulario Paco</button>
     <button (click)="mostrarContenido('btn4')">Formulario David</button>
-    <button (click)="mostrarContenido('btn5')">Semana 5</button>
 </div>
 
-<div *ngIf="vistaActual === 'btn1'">
+<div *ngIf="vistaActual === 'btn1'"  routerLink='/directivas' >
   <app-directiva></app-directiva>
 </div>
-<div *ngIf="vistaActual === 'btn2'">
+<div *ngIf="vistaActual === 'btn2'" routerLink='/formularioEstibaliz'>
   <app-formulario-estibaliz></app-formulario-estibaliz>
 </div>
-<div *ngIf="vistaActual === 'btn3'">
+<div *ngIf="vistaActual === 'btn3'" routerLink='/formularioPaco'>
   <app-formulario-paco></app-formulario-paco>
 </div>
-<div *ngIf="vistaActual === 'btn4'">
+<div *ngIf="vistaActual === 'btn4'" routerLink='/formularioDavid'>
   <app-formulario-david></app-formulario-david>
-</div>
-<div *ngIf="vistaActual === 'btn5'">
-  <h1>Botón 5 funciona</h1>
 </div>
