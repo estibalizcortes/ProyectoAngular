@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario-paco',
   standalone: true,
-  imports: [FormsModule, CommonModule],  
+  imports: [ReactiveFormsModule, CommonModule],  
   templateUrl: './formulario-paco.component.html',
   styleUrls: ['./formulario-paco.component.css']
 })
@@ -13,32 +14,53 @@ export class FormularioPacoComponent {
   title = 'Formulario de Registro';
   color: string = 'black'; // Color inicial de las letras
 
-  persona = {
-    nombre: '',
-    apellido: '',
-    correo: '',
-    contrasena: '',
-    confirmarContrasena: '',
-    direccion: '',
-    telefono: '',
-    fechaNacimiento: '',
-    genero: '',
-    estadoCivil: ''
+  formulario: FormGroup;  // Declaramos un FormGroup
+
+  constructor(private fb: FormBuilder) {
+    // Inicializamos el formulario con FormBuilder y validadores
+    this.formulario = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      confirmarContrasena: ['', Validators.required],
+      direccion: ['', Validators.required],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
+      fechaNacimiento: ['', Validators.required],
+      genero: ['', Validators.required],
+      estadoCivil: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });  // Validación personalizada
   }
 
-  constructor() { }
+  // Validación personalizada para las contraseñas coincidentes
+  passwordMatchValidator(formGroup: FormGroup) {
+    const contrasena = formGroup.get('contrasena');
+    const confirmarContrasena = formGroup.get('confirmarContrasena');
+    if (contrasena?.value !== confirmarContrasena?.value) {
+      confirmarContrasena?.setErrors({ passwordMismatch: true });
+    } else {
+      confirmarContrasena?.setErrors(null);
+    }
+    return null;
+  }
 
   // De color a azul claro cuando el ratón pase por encima
   changeColor(event: any): void {
-    this.color = '#ADD8E6'; 
+    this.color = '#ADD8E6';
   }
 
   // Volver al color negro cuando el ratón salga
   resetColor(event: any): void {
-    this.color = 'black'; 
+    this.color = 'black';
   }
 
+  // Método para enviar los datos
   enviarDatos() {
-    console.log(this.persona);
+    if (this.formulario.valid) {
+      console.log("Formulario enviado:", this.formulario.value);
+      this.formulario.reset();  // Reseteamos el formulario después de enviarlo
+    } else {
+      console.log('Error: El formulario no es válido');
+    }
   }
 }
