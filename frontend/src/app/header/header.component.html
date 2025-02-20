@@ -1,0 +1,19 @@
+<div>
+    <button (click)="mostrarContenido('btn1')">Directivas</button>
+    <button (click)="mostrarContenido('btn2')">Formulario Estibaliz</button>
+    <button (click)="mostrarContenido('btn3')">Formulario Paco</button>
+    <button (click)="mostrarContenido('btn4')">Formulario David</button>
+</div>
+
+<div *ngIf="vistaActual === 'btn1'"  routerLink='/directivas' >
+  <app-directiva></app-directiva>
+</div>
+<div *ngIf="vistaActual === 'btn2'" routerLink='/formularioEstibaliz'>
+  <app-formulario-estibaliz></app-formulario-estibaliz>
+</div>
+<div *ngIf="vistaActual === 'btn3'" routerLink='/formularioPaco'>
+  <app-formulario-paco></app-formulario-paco>
+</div>
+<div *ngIf="vistaActual === 'btn4'" routerLink='/formularioDavid'>
+  <app-formulario-david></app-formulario-david>
+</div>
