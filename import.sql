@@ -9,7 +9,9 @@ CREATE TABLE IF NOT EXISTS roles (
 );
 
 -- Insertar roles si no existen
-INSERT IGNORE INTO roles (nombre) VALUES ('admin'), ('usuario');
+INSERT INTO roles (id, nombre) VALUES (1, 'Usuario');
+INSERT INTO roles (id, nombre) VALUES (2, 'Administrador');
+INSERT INTO roles (id, nombre) VALUES (3, 'Invitado');
 
 -- Crear la tabla de usuarios
 CREATE TABLE IF NOT EXISTS usuarios (
