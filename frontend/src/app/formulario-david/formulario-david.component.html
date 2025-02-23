@@ -1,0 +1,72 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Matrícula 2º DAW - IES Almudeyne</h1>
+    <form [formGroup]="formulario" (ngSubmit)="validarFormulario()">
+
+        <div class="m-3">
+            <label class="form-label">Nombre:</label>
+            <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+            <div *ngIf="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Apellido:</label>
+            <input type="text" class="form-control" placeholder="Apellido" formControlName="apellido">
+            <div *ngIf="formulario.get('apellido')?.invalid && formulario.get('apellido')?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">DNI:</label>
+            <input type="text" class="form-control" placeholder="DNI" formControlName="dni">
+            <div *ngIf="formulario.get('dni')?.invalid && formulario.get('dni')?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" class="form-control" placeholder="Correo" formControlName="correo">
+            <div *ngIf="formulario.get('correo')?.invalid && formulario.get('correo')?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Dirección:</label>
+            <input type="text" class="form-control" placeholder="Dirección" formControlName="direccion">
+        </div>
+
+        <div class="m-3">
+            <label class="form-label">Teléfono:</label>
+            <input type="number" class="form-control" placeholder="Teléfono" formControlName="telefono">
+            <div *ngIf="formulario.get('telefono')?.invalid && formulario.get('telefono')?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <div class="m-3">
+            <label class="form-label d-block">Género:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="genero" value="masculino">
+                <label class="form-check-label">Masculino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="genero" value="femenino">
+                <label class="form-check-label">Femenino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="genero" value="otro">
+                <label class="form-check-label">Otro</label>
+            </div>
+            <div *ngIf="formulario.get('genero')?.invalid && formulario.get('genero')?.touched" class="text-danger">
+                Campo obligatorio*
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success m-2" [disabled]="formulario.invalid">Enviar</button>
+
+    </form>
+</div>
