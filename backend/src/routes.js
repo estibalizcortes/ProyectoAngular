@@ -5,4 +5,7 @@ const router = express.Router();
 
 router.post('/registro', appController.registrarUsuario);
 
+router.delete('/usuario/:id', appController.eliminarUsuario);
+
+
 module.exports = router;
