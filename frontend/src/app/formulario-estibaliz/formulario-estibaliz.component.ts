@@ -13,6 +13,10 @@ import { CommonModule } from '@angular/common';
 export class FormularioEstibalizComponent {
   title = 'Formulario de Registro';
 
+  //Esta variable la declaro aquí para verificar si se proporciona un id y habilitar el botón.
+  userId: string = '';
+
+  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
 
   // VALIDACIONES
   mensajeErrorDireccion = '';
@@ -87,7 +91,7 @@ export class FormularioEstibalizComponent {
     );
   }
   mensaje = '';
-  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
+
   private apiGetUsersUrl = 'http://localhost:3000/api/usuarios';
   usuarios: any[] = []; // Almacenar la lista de usuarios registrados en el backend
 
@@ -96,12 +100,35 @@ export class FormularioEstibalizComponent {
     this.http.get(this.apiGetUsersUrl).subscribe(
       (response: any) => {
         console.log('Usuarios obtenidos con éxito', response);
-        this.usuarios = response;
+        this.usuarios = response.usuarios;
       },
       error => {
         console.error('Error al obtener usuarios', error);
       }
     );
   }
+
+  eliminarUsuario() {
+    if (this.userId) {
+      this.http.delete(`${this.apiUrl}/${this.userId}`).subscribe(
+        response => {
+          console.log('Usuario eliminado correctamente', response);
+          alert('Usuario eliminado correctamente');
+          this.userId = '';
+        },
+        error => {
+          console.error('Error al eliminar el usuario', error);
+          alert('Error al eliminar el usuario');
+        }
+      );
+    } else {
+      console.error('Se debe proporcionar un ID de usuario válido');
+    }
+  }
+
+//Método para verificar si el id que se añade es un número para así habilitar el boton.
+isUserIdValid(): boolean {
+  return /^[0-9]+$/.test(this.userId);
+}
 }
 

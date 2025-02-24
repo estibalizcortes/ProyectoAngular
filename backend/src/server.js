@@ -39,6 +39,18 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', routes);
 
+app.get('/api/usuarios', (req, res) => {
+  const sql = 'SELECT * FROM usuarios';
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error al obtener usuarios:', err); // Muestra el error en la consola
+          return res.status(500).json({ error: 'Error al obtener usuarios' });
+      }
+      res.json({ usuarios: results });
+  });
+});
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
