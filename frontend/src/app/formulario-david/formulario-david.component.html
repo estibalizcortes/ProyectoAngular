@@ -1,72 +1,72 @@
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Matrícula 2º DAW - IES Almudeyne</h1>
-    <form [formGroup]="formulario" (ngSubmit)="validarFormulario()">
-
-        <div class="m-3">
-            <label class="form-label">Nombre:</label>
-            <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
-            <div *ngIf="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched" class="text-danger">
-                Campo obligatorio*
-            </div>
+<div>
+    <h1>Crear/Eliminar usuarios </h1>
+    <form (ngSubmit)="enviarDatos()">
+        <div class="m-2">
+            <label class="form-nombre">Nombre:</label>
+            <input type="text" class="form-control" placeholder="Nombre" [(ngModel)] ="persona.nombre" name="nombre">
         </div>
-
-        <div class="m-3">
-            <label class="form-label">Apellido:</label>
-            <input type="text" class="form-control" placeholder="Apellido" formControlName="apellido">
-            <div *ngIf="formulario.get('apellido')?.invalid && formulario.get('apellido')?.touched" class="text-danger">
-                Campo obligatorio*
-            </div>
+        <div class="m-2">
+            <label class="form-nombre">Apellido:</label>
+            <input type="text" class="form-control" placeholder="Apellido" [(ngModel)] ="persona.apellido" name="apellido">
         </div>
-
-        <div class="m-3">
-            <label class="form-label">DNI:</label>
-            <input type="text" class="form-control" placeholder="DNI" formControlName="dni">
-            <div *ngIf="formulario.get('dni')?.invalid && formulario.get('dni')?.touched" class="text-danger">
-                Campo obligatorio*
-            </div>
+        <div class="m-2">
+            <label class="form-nombre">Correo:</label>
+            <input type="email" class="form-control" placeholder="Correo" [(ngModel)] ="persona.correo" name="correo"  (blur)="validarCorreo()">
+            <small class="text-danger" *ngIf="mensajeErrorCorreo">{{ mensajeErrorCorreo }}</small>
         </div>
-
-        <div class="m-3">
-            <label class="form-label">Correo:</label>
-            <input type="email" class="form-control" placeholder="Correo" formControlName="correo">
-            <div *ngIf="formulario.get('correo')?.invalid && formulario.get('correo')?.touched" class="text-danger">
-                Campo obligatorio*
-            </div>
+        <div class="m-2">
+            <label class="form-nombre">Contraseña:</label>
+            <input type="password" class="form-control" placeholder="Contraseña" [(ngModel)] ="persona.contrasena" name="contrasena" (blur)="validarContrasena()">
         </div>
-
-        <div class="m-3">
-            <label class="form-label">Dirección:</label>
-            <input type="text" class="form-control" placeholder="Dirección" formControlName="direccion">
+        <div class="m-2">
+            <label class="form-nombre">Confirmar contraseña:</label>
+            <input type="password" class="form-control" placeholder="Confirmar contraseña" [(ngModel)] ="persona.confirmarContrasena" name="confirmarContrasena" (blur)="validarContrasena()">
+            <small class="text-danger" *ngIf="mensajeErrorContrasena">{{ mensajeErrorContrasena }}</small>
         </div>
-
-        <div class="m-3">
-            <label class="form-label">Teléfono:</label>
-            <input type="number" class="form-control" placeholder="Teléfono" formControlName="telefono">
-            <div *ngIf="formulario.get('telefono')?.invalid && formulario.get('telefono')?.touched" class="text-danger">
-                Campo obligatorio*
-            </div>
+        <div class="m-2">
+            <label class="form-nombre">Dirección:</label>
+            <input type="text" class="form-control" placeholder="Dirección" [(ngModel)] ="persona.direccion" name="direccion" (blur)="validarDireccion()">
+            <small class="text-danger" *ngIf="mensajeErrorDireccion">{{ mensajeErrorDireccion }}</small>
         </div>
-
-        <div class="m-3">
-            <label class="form-label d-block">Género:</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="genero" value="masculino">
-                <label class="form-check-label">Masculino</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="genero" value="femenino">
-                <label class="form-check-label">Femenino</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" formControlName="genero" value="otro">
-                <label class="form-check-label">Otro</label>
-            </div>
-            <div *ngIf="formulario.get('genero')?.invalid && formulario.get('genero')?.touched" class="text-danger">
-                Campo obligatorio*
-            </div>
+        <div class="m-2">
+            <label class="form-nombre">Teléfono:</label>
+            <input type="number" class="form-control" placeholder="Teléfono" [(ngModel)] ="persona.telefono" name="telefono">
         </div>
-
-        <button type="submit" class="btn btn-success m-2" [disabled]="formulario.invalid">Enviar</button>
-
+        <div class="m-2">
+            <label class="form-nombre">Fecha de nacimiento:</label>
+            <input type="date" class="form-control" placeholder="Fecha de nacimiento" [(ngModel)] ="persona.fechaNacimiento" name="fechaNacimiento">
+        </div>
+        <div class="m-2">
+            <label class="form-nombre">Género:</label>
+            <select class="form-control" [(ngModel)] ="persona.genero" name="genero">
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        <div class="m-2">
+            <label class="form-nombre">Estado civil:</label>
+            <select class="form-control" [(ngModel)] ="persona.estadoCivil" name="estadoCivil">
+                <option value="soltero">Soltero</option>
+                <option value="casado">Casado</option>
+                <option value="divorciado">Divorciado</option>
+                <option value="viudo">Viudo</option>
+            </select>
+        </div>
+        <div class="m-2">
+            <label class="form-nombre">Rol:</label>
+            <select class="form-control" [(ngModel)]="persona.rolId" name="rolId">
+                <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary m-2">Enviar</button>
+        <div class="m-3">
+            <label class="form-label">ID de Usuario:</label>
+            <input type="text" class="form-control" placeholder="ID" [(ngModel)]="userId" name="userId">
+        </div>
+    
+        <button class="btn btn-danger m-2" (click)="eliminarUsuario()" [disabled]="!isUserIdValid()">Eliminar</button>
     </form>
+
+    
 </div>

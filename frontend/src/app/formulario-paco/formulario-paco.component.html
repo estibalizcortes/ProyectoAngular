@@ -59,5 +59,12 @@
 </button>
 
     </form>
+
+    <div class="m-3">
+      <label class="form-label">ID de Usuario:</label>
+      <input type="text" class="form-control" placeholder="ID" [(ngModel)]="userId" name="userId">
+  </div>
+
+  <button class="btn btn-danger m-2" (click)="eliminarUsuario()" [disabled]="!isUserIdValid()">Eliminar</button>
   </div>
   
