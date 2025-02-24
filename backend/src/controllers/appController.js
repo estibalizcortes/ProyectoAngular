@@ -17,21 +17,21 @@ const appController = {
 
     eliminarUsuario: (req, res) => {
         const { id } = req.params;
-    
+
         UsuarioRepository.eliminarUsuario(id, (err, result) => {
             if (err) {
                 console.error('Error al eliminar usuario:', err);
                 return res.status(500).send('Error al eliminar el usuario');
             }
-    
+
             if (result.affectedRows === 0) {
                 return res.status(404).send({ message: 'Usuario no encontrado' });
             }
-    
+
             res.send({ message: 'Usuario eliminado correctamente' });
         });
     }
-    
+
 };
 
 module.exports = appController;

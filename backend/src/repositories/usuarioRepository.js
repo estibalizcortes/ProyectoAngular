@@ -23,8 +23,8 @@ class UsuarioRepository {
 
     //Método para eliminar usuarios
     static eliminarUsuario(id, callback) {
-        const sql = "DELETE FROM usuarios WHERE id = ?";
-        db.query(sql, [id], callback);
+        const sqlEliminar = "DELETE FROM usuarios WHERE id = ?";
+        db.query(sqlEliminar, [id], callback);
     }
     
 }
