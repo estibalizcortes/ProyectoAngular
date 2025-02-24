@@ -13,10 +13,9 @@ import { CommonModule } from '@angular/common';
 export class FormularioDavidComponent implements OnInit{
   title = 'Formulario de Registro';
 
-  //Esta variable la declaro aquí para verificar si se proporciona un id y habilitar el botón.
-  userId: string = '';
+ 
 
-  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
+  //CREATE
 
   // VALIDACIONES
   mensajeErrorDireccion = '';
@@ -45,6 +44,7 @@ export class FormularioDavidComponent implements OnInit{
     }
   }
 
+  constructor(private http: HttpClient) { }
   persona = {
     nombre: '',
     apellido: '',
@@ -63,7 +63,17 @@ export class FormularioDavidComponent implements OnInit{
     { id: '2', nombre: 'Administrador' },
     { id: '3', nombre: 'Invitado' }
   ];
-  constructor(private http: HttpClient) { }
+  
+  //UPDATE
+
+
+  //DELETE
+
+   //Esta variable la declaro aquí para verificar si se proporciona un id y habilitar el botón.
+    userId: string = '';
+    private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
+
+  
 
   ngOnInit() {
     this.obtenerUsuarios(); // Cargar usuarios al iniciar el componente
