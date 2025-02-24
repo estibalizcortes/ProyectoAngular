@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-formulario-paco',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],  
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],  
   templateUrl: './formulario-paco.component.html',
   styleUrls: ['./formulario-paco.component.css']
 })
