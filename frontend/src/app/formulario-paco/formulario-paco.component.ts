@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-formulario-paco',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],  
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],  
   templateUrl: './formulario-paco.component.html',
   styleUrls: ['./formulario-paco.component.css']
 })
@@ -14,9 +16,14 @@ export class FormularioPacoComponent {
   title = 'Formulario de Registro';
   color: string = 'black'; // Color inicial de las letras
 
+  //Esta variable la declaro aquí para verificar si se proporciona un id y habilitar el botón.
+  userId: string = '';
+
+  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
+
   formulario: FormGroup;  // Declaramos un FormGroup
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     // Inicializamos el formulario con FormBuilder y validadores
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -63,4 +70,27 @@ export class FormularioPacoComponent {
       console.log('Error: El formulario no es válido');
     }
   }
+
+  eliminarUsuario() {
+    if (this.userId) {
+      this.http.delete(`${this.apiUrl}/${this.userId}`).subscribe(
+        response => {
+          console.log('Usuario eliminado correctamente', response);
+          alert('Usuario eliminado correctamente');
+          this.userId = '';
+        },
+        error => {
+          console.error('Error al eliminar el usuario', error);
+          alert('Error al eliminar el usuario');
+        }
+      );
+    } else {
+      console.error('Se debe proporcionar un ID de usuario válido');
+    }
+  }
+
+//Método para verificar si el id que se añade es un número para así habilitar el boton.
+isUserIdValid(): boolean {
+  return /^[0-9]+$/.test(this.userId);
+}
 }
