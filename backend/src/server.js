@@ -1,3 +1,4 @@
+
 /*
 COMANDO PARA LEVANTAR EL SERVIDOR: 
   node src/server.js
@@ -28,6 +29,7 @@ DEPENDENCIAS INSTALADAS:
   npm install cors  (Permite peticiones desde cualquier frontend)
   npm install body-parser (Para los datos que se envían al backend a través de formularios)
 */
+const db = require('./services/appService');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -50,9 +52,26 @@ app.get('/api/usuarios', (req, res) => {
   });
 });
 
+// Ruta para obtener un usuario por su ID
+app.get('/api/usuarios/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'SELECT * FROM usuarios WHERE id = ?';
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      console.error('Error al obtener el usuario:', err);
+      return res.status(500).send('Error al obtener el usuario');
+    }
+    if (results.length > 0) {
+      res.json(results[0]);  // Devuelve solo el primer usuario encontrado
+    } else {
+      res.status(404).send('Usuario no encontrado');
+    }
+  });
+});
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 

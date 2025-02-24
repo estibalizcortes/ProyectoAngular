@@ -1,96 +1,149 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-formulario-paco',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule],  
+  standalone: true, 
+  imports: [FormsModule, CommonModule], 
   templateUrl: './formulario-paco.component.html',
   styleUrls: ['./formulario-paco.component.css']
 })
 export class FormularioPacoComponent {
   title = 'Formulario de Registro';
-  color: string = 'black'; // Color inicial de las letras
+  userId: string = '';  // Input field for user ID
 
-  //Esta variable la declaro aquí para verificar si se proporciona un id y habilitar el botón.
-  userId: string = '';
+  private apiUrl = 'http://localhost:3000/api/usuarios'; // Backend API URL
+  usuarios: any[] = [];  // Almacenar la lista de usuarios
 
-  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
+  formData: any = {
+    nombre: '',
+    apellido: '',
+    correo: '',
+    contrasena: '',
+    confirmarContrasena: '',
+    direccion: '',
+    telefono: '',
+    fechaNacimiento: '',
+    genero: 'masculino',
+    estadoCivil: 'soltero'
+  };
 
-  formulario: FormGroup;  // Declaramos un FormGroup
+  constructor(private http: HttpClient) {}
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-    // Inicializamos el formulario con FormBuilder y validadores
-    this.formulario = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required, Validators.minLength(6)]],
-      confirmarContrasena: ['', Validators.required],
-      direccion: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
-      fechaNacimiento: ['', Validators.required],
-      genero: ['', Validators.required],
-      estadoCivil: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator });  // Validación personalizada
-  }
-
-  // Validación personalizada para las contraseñas coincidentes
-  passwordMatchValidator(formGroup: FormGroup) {
-    const contrasena = formGroup.get('contrasena');
-    const confirmarContrasena = formGroup.get('confirmarContrasena');
-    if (contrasena?.value !== confirmarContrasena?.value) {
-      confirmarContrasena?.setErrors({ passwordMismatch: true });
-    } else {
-      confirmarContrasena?.setErrors(null);
-    }
-    return null;
-  }
-
-  // De color a azul claro cuando el ratón pase por encima
-  changeColor(event: any): void {
-    this.color = '#ADD8E6';
-  }
-
-  // Volver al color negro cuando el ratón salga
-  resetColor(event: any): void {
-    this.color = 'black';
-  }
-
-  // Método para enviar los datos
-  enviarDatos() {
-    if (this.formulario.valid) {
-      console.log("Formulario enviado:", this.formulario.value);
-      this.formulario.reset();  // Reseteamos el formulario después de enviarlo
-    } else {
-      console.log('Error: El formulario no es válido');
-    }
-  }
-
-  eliminarUsuario() {
-    if (this.userId) {
-      this.http.delete(`${this.apiUrl}/${this.userId}`).subscribe(
-        response => {
-          console.log('Usuario eliminado correctamente', response);
-          alert('Usuario eliminado correctamente');
-          this.userId = '';
+  // Método para buscar usuario por ID
+  obtenerUsuario() {
+    if (this.userId.trim() !== '') {
+      this.http.get<any>(`${this.apiUrl}/${this.userId}`).subscribe(
+        (data) => {
+          console.log(data); // Verificamos que los datos están llegando correctamente
+          if (data && data.length > 0) {  // Asegúrate de que data no está vacío
+            // Si se encuentra el usuario, rellenamos el formulario con los datos
+            this.formData = {
+              nombre: data[0].nombre,
+              apellido: data[0].apellido,
+              correo: data[0].correo,
+              contrasena: data[0].contrasena,
+              confirmarContrasena: data[0].contrasena, // Asumimos que la contraseña es la misma para confirmar
+              direccion: data[0].direccion,
+              telefono: data[0].telefono,
+              fechaNacimiento: new Date(data[0].fecha_nacimiento).toISOString().split('T')[0],  // Formato de fecha ya que viene de una manera distinta a la de form
+              genero: data[0].genero,
+              estadoCivil: data[0].estado_civil,
+              rolId: data[0].rol_id 
+            };
+          } else {
+            alert('Usuario no encontrado');
+          }
         },
-        error => {
-          console.error('Error al eliminar el usuario', error);
-          alert('Error al eliminar el usuario');
+        (error) => {
+          console.error('Error al obtener el usuario:', error);
+          alert('Error al obtener el usuario');
         }
       );
     } else {
-      console.error('Se debe proporcionar un ID de usuario válido');
+      alert('Por favor, ingresa un ID');
+    }
+  }
+  
+  
+  
+  // Método para obtener todos los usuarios
+  obtenerTodosUsuarios() {
+    this.http.get<any>(this.apiUrl).subscribe(
+      (data) => {
+        this.usuarios = data.usuarios; // Suponemos que el backend devuelve una lista de usuarios
+      },
+      (error) => {
+        console.error('Error al obtener los usuarios:', error);
+      }
+    );
+  }
+
+  // Método para actualizar los datos del usuario
+  actualizarUsuario() {
+    if (this.isFormValid()) {
+      this.http.put<any>(`${this.apiUrl}/${this.userId}`, this.formData).subscribe(
+        (response) => {
+          alert('Usuario actualizado exitosamente');
+        },
+        (error) => {
+          alert('Error al actualizar el usuario');
+        }
+      );
+    } else {
+      alert('Formulario inválido');
     }
   }
 
-//Método para verificar si el id que se añade es un número para así habilitar el boton.
-isUserIdValid(): boolean {
-  return /^[0-9]+$/.test(this.userId);
+  // Método para eliminar un usuario// Método para eliminar un usuario
+eliminarUsuario() {
+  if (this.userId.trim() !== '') {
+    this.http.delete<any>(`${this.apiUrl}/${this.userId}`).subscribe(
+      (response) => {
+        alert('Usuario eliminado exitosamente');
+        // Después de eliminar, obtenemos todos los usuarios nuevamente para actualizar la lista
+        this.obtenerTodosUsuarios(); // Actualiza la lista de usuarios
+        this.resetForm(); // Reiniciar el formulario
+      },
+      (error) => {
+        alert('Error al eliminar el usuario');
+        console.error('Error al eliminar el usuario', error);
+      }
+    );
+  } else {
+    alert('Por favor, ingresa un ID para eliminar el usuario'); // No es necesario creo ya que los botones no se activan a no ser que se escriba un numero.
+  }
 }
+
+
+  // Verificar si el ID de usuario es válido
+  isUserIdValid() {
+    return /^[0-9]+$/.test(this.userId); // Solo números
+  }
+
+  // Validar si el formulario es válido
+  isFormValid() {
+    return this.formData.nombre && this.formData.apellido && this.formData.correo &&
+           this.formData.contrasena && this.formData.confirmarContrasena && this.formData.direccion &&
+           this.formData.telefono && this.formData.fechaNacimiento && this.formData.genero && this.formData.estadoCivil;
+  }
+
+  // Resetear el formulario
+  resetForm() {
+    this.formData = {
+      nombre: '',
+      apellido: '',
+      correo: '',
+      contrasena: '',
+      confirmarContrasena: '',
+      direccion: '',
+      telefono: '',
+      fechaNacimiento: '',
+      genero: 'masculino',
+      estadoCivil: 'soltero'
+    };
+    this.userId = '';
+  }
 }
