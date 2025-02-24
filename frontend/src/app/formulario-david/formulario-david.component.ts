@@ -15,7 +15,37 @@ export class FormularioDavidComponent implements OnInit{
 
  
 
-  //CREATE
+//CREATE
+
+
+  // ENVIAR DATOS AL SERVIDOR (BACKEND)
+    enviarDatos() {
+      console.log(this.persona); //muestra por pantalla los datos que va a enviar al servidor
+      console.log('Rol seleccionado:', this.persona.rolId);
+
+      this.validarDireccion(); // Validar que la dirección no esté vacía
+      this.validarCorreo(); // Validar que el correo sea correcto
+      this.validarContrasena(); // Validar que las contraseñas coincidan
+
+      if (this.mensajeErrorDireccion || this.mensajeErrorCorreo || this.mensajeErrorContrasena) {
+      console.error('Hay errores en el formulario, corrígelos antes de enviar.');
+      return;
+      }
+
+      this.http.post('http://localhost:3000/api/registro', this.persona).subscribe(
+      response => {
+        console.log('Datos enviados con éxito', response);
+        alert('Usuario registrado correctamente');
+      },
+      error => {
+        console.error('Error al enviar datos', error);
+      }
+      );
+    }
+  mensaje = '';
+
+  
+
 
   // VALIDACIONES
   mensajeErrorDireccion = '';
@@ -64,52 +94,15 @@ export class FormularioDavidComponent implements OnInit{
     { id: '3', nombre: 'Invitado' }
   ];
   
-  //UPDATE
+//UPDATE
 
-
-  //DELETE
-
-   //Esta variable la declaro aquí para verificar si se proporciona un id y habilitar el botón.
-    userId: string = '';
-    private apiUrl = 'http://localhost:3000/api/usuarios'; // Ruta del backend
-
-  
-
-  ngOnInit() {
-    this.obtenerUsuarios(); // Cargar usuarios al iniciar el componente
-  }
-
-  // ENVIAR DATOS AL SERVIDOR (BACKEND)
-  enviarDatos() {
-    console.log(this.persona); //muestra por pantalla los datos que va a enviar al servidor
-    console.log('Rol seleccionado:', this.persona.rolId);
-
-    this.validarDireccion(); // Validar que la dirección no esté vacía
-    this.validarCorreo(); // Validar que el correo sea correcto
-    this.validarContrasena(); // Validar que las contraseñas coincidan
-
-    if (this.mensajeErrorDireccion || this.mensajeErrorCorreo || this.mensajeErrorContrasena) {
-      console.error('Hay errores en el formulario, corrígelos antes de enviar.');
-      return;
-    }
-
-    this.http.post('http://localhost:3000/api/registro', this.persona).subscribe(
-      response => {
-        console.log('Datos enviados con éxito', response);
-        alert('Usuario registrado correctamente');
-      },
-      error => {
-        console.error('Error al enviar datos', error);
-      }
-    );
-  }
-  mensaje = '';
-
+  /*Declaración de variables, url para cargar el select de usuarios para modificarlos
+  y array donde guardar los usuarios.*/
   private apiGetUsersUrl = 'http://localhost:3000/api/usuarios';
   usuarios: any[] = []; // Almacenar la lista de usuarios registrados en el backend
 
   // Obtener los usuarios registrados en el backend
-  obtenerUsuarios() {
+    obtenerUsuarios() {
     this.http.get(this.apiUrl).subscribe(
       (response: any) => {
         console.log('Usuarios obtenidos con éxito', response);
@@ -121,27 +114,43 @@ export class FormularioDavidComponent implements OnInit{
     );
   }
 
-  eliminarUsuario() {
-    if (this.userId) {
-      this.http.delete(`${this.apiUrl}/${this.userId}`).subscribe(
+
+//DELETE
+
+  /*Declaramos dos variables, la primera para habilitar el botón de eliminar si está relleno el campo.
+  La segunda para crear la url que usaremos en el backend al eliminar el usuario.*/
+    userId: string = '';
+    private apiUrl = 'http://localhost:3000/api/usuarios';
+
+
+  //Intento de cargar de select para eliminar usuarios.
+    ngOnInit() {
+      this.obtenerUsuarios(); // Cargar usuarios al iniciar el componente
+    }
+
+    eliminarUsuario() {
+      if (this.userId) {
+        this.http.delete(`${this.apiUrl}/${this.userId}`).subscribe(
         response => {
           console.log('Usuario eliminado correctamente', response);
           alert('Usuario eliminado correctamente');
           this.userId = '';
-        },
-        error => {
+          },
+          error => {
           console.error('Error al eliminar el usuario', error);
           alert('Error al eliminar el usuario');
-        }
-      );
-    } else {
-      console.error('Se debe proporcionar un ID de usuario válido');
-    }
+          }
+        );
+      } else {
+        console.error('Se debe proporcionar un ID de usuario válido');
+      }
+    } 
+
+  //Método para verificar si el id que se añade es un número para así habilitar el boton.
+  isUserIdValid(): boolean {
+    return /^[0-9]+$/.test(this.userId);
   }
 
-//Método para verificar si el id que se añade es un número para así habilitar el boton.
-isUserIdValid(): boolean {
-  return /^[0-9]+$/.test(this.userId);
-}
+
 }
 
